@@ -4,17 +4,15 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class ChatApplication {
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
+    // User details
+    public String username;
+    public String password;
+    public String firstName;
+    public String lastName;
 
-    
     public ChatApplication() {
-        
     }
 
-    
     public ChatApplication(String firstName, String lastName, String username, String password) {
         if (firstName == null || lastName == null || username == null || password == null) {
             throw new IllegalArgumentException("Constructor arguments cannot be null.");
@@ -27,7 +25,7 @@ public class ChatApplication {
 
     // Main method 
     public static void main(String[] args) {
-        ChatApplication chatApp = new ChatApplication(); 
+        ChatApplication chatApp = new ChatApplication();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("=== Registration ===");
@@ -41,8 +39,10 @@ public class ChatApplication {
             System.out.print("Enter password: ");
             String enteredPassword = scanner.nextLine();
 
-            boolean loginSuccess = chatApp.loginUser(enteredUsername, enteredPassword);
-            System.out.println(chatApp.returnLoginStatus(loginSuccess));
+            // Use Login class
+            Login login = new Login(chatApp.username, chatApp.password, chatApp.firstName, chatApp.lastName);
+            boolean loginSuccess = login.loginUser(enteredUsername, enteredPassword);
+            System.out.println(login.returnLoginStatus(loginSuccess));
         }
 
         scanner.close();
@@ -107,18 +107,36 @@ public class ChatApplication {
 
         return "Registration successful!";
     }
+}
 
-    // Login check 
-    private boolean loginUser(String enteredUsername, String enteredPassword) {
-        if (enteredUsername == null || enteredPassword == null) return false;
-        return enteredUsername.equals(this.username) && enteredPassword.equals(this.password);
+
+class Login {
+    private final String storedUsername;
+    private final String storedPassword;
+    private final String firstName;
+    private final String lastName;
+
+    public Login(String storedUsername, String storedPassword, String firstName, String lastName) {
+        this.storedUsername = storedUsername;
+        this.storedPassword = storedPassword;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    // Return login status
-    private String returnLoginStatus(boolean isSuccessful) {
+    // Method to verify login credentials
+    public boolean loginUser(String enteredUsername, String enteredPassword) {
+        if (enteredUsername == null || enteredPassword == null) return false;
+        return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
+    }
+
+    // Method to return login status message
+    public String returnLoginStatus(boolean isSuccessful) {
         if (isSuccessful) {
             return "Welcome " + firstName + " " + lastName + ", it is great to see you again.";
         }
         return "Username or password incorrect, please try again.";
     }
 }
+*References(at attribution for ideas)
+*ChatGPT,(2025,September 17). Regular-expression pattern guidance for international phone formarts with country codes.
+*OpenAI, " Add oop concepts and null guards then create a method to verify log in gredentials "
