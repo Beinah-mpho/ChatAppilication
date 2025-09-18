@@ -110,19 +110,6 @@ public class ChatApplication {
 }
 
 
-class Login {
-    private final String storedUsername;
-    private final String storedPassword;
-    private final String firstName;
-    private final String lastName;
-
- 
-
-    // Method to verify login credentials
-    public boolean loginUser(String enteredUsername, String enteredPassword) {
-        if (enteredUsername == null || enteredPassword == null) return false;
-        return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
-    }
 
     // Method to return login status message
     public String returnLoginStatus(boolean isSuccessful) {
