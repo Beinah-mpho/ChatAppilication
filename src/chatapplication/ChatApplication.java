@@ -116,12 +116,7 @@ class Login {
     private final String firstName;
     private final String lastName;
 
-    public Login(String storedUsername, String storedPassword, String firstName, String lastName) {
-        this.storedUsername = storedUsername;
-        this.storedPassword = storedPassword;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+ 
 
     // Method to verify login credentials
     public boolean loginUser(String enteredUsername, String enteredPassword) {
